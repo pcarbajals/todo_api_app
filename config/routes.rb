@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
-  resources :tags
-  resources :tasks
+  concern :api_base do
+    resources :tags
+    resources :tasks
+  end
+
+  namespace :v1 do
+    concerns :api_base
+  end
 end
