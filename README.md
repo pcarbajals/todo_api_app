@@ -21,4 +21,5 @@ Things you may want to cover:
 
 * Deployment instructions
 
-* ...
+* Versioning
+Followed versioning design as described in https://chriskottom.com/blog/2017/04/versioning-a-rails-api/
