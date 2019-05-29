@@ -4,7 +4,9 @@ Rails.application.routes.draw do
     resources :tasks
   end
 
-  namespace :v1 do
-    concerns :api_base
+  scope '/api' do
+    namespace :v1 do
+      concerns :api_base
+    end
   end
 end
