@@ -28,12 +28,21 @@ RSpec.describe 'V1::Tasks', type: :request do
     context 'PATCH /v1/tasks/2' do
       let(:json_request) { parse_json file_fixture('v1/postman_post_tasks_2_request.json').read }
       let(:json_response) { parse_json file_fixture('v1/postman_post_tasks_2_response.json').read }
+      let(:json_request_with_tag) { parse_json file_fixture('v1/postman_post_tasks_2_with_tag_request.json').read }
+      let(:json_response_with_tag) { parse_json file_fixture('v1/postman_post_tasks_2_with_tag_response.json').read }
   
-      it 'matches example' do
+      it 'matches example without tag' do
         post v1_tasks_path, params: json_request
   
         expect(response).to have_http_status(200)
         expect(parse_json response.body).to eq(json_response)
+      end
+
+      it 'matches example with tag' do
+        post v1_tasks_path, params: json_request_with_tag
+
+        expect(response).to have_http_status(200)
+        expect(parse_json response.body).to eq(json_response_with_tag)
       end
     end
   end
