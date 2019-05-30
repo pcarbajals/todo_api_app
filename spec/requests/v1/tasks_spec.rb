@@ -2,6 +2,10 @@ require 'rails_helper'
 
 RSpec.describe 'V1::Tasks', type: :request do
   describe 'Postman integration tests' do
+    before(:all) do
+      @task = create(:task)
+    end
+    
     context 'GET /v1/tasks' do
       let(:json_response) { parse_json file_fixture('v1/postman_get_tasks_response.json').read }
   
@@ -31,14 +35,14 @@ RSpec.describe 'V1::Tasks', type: :request do
       let(:json_request_with_tag) { parse_json file_fixture('v1/postman_post_tasks_2_with_tag_request.json').read }
       let(:json_response_with_tag) { parse_json file_fixture('v1/postman_post_tasks_2_with_tag_response.json').read }
   
-      it 'matches example without tag' do
+      it 'matches example without tags' do
         post v1_tasks_path, params: json_request
   
         expect(response).to have_http_status(200)
         expect(parse_json response.body).to eq(json_response)
       end
 
-      it 'matches example with tag' do
+      it 'matches example with tags' do
         post v1_tasks_path, params: json_request_with_tag
 
         expect(response).to have_http_status(200)
