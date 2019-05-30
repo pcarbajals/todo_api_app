@@ -1,0 +1,9 @@
+{
+  "data": {
+    "type": "tasks",
+    "id": "2",
+    "attributes": {
+      "title": "Updated Task Title"
+    }
+  }
+}
