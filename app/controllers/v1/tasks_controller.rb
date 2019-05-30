@@ -3,9 +3,9 @@ class V1::TasksController < ApplicationController
 
   # GET /tasks
   def index
-    @tasks = Task.all
+    @tasks = Task.all.includes(:tags)
 
-    render json: @tasks
+    render json: @tasks, include: 'tags'
   end
 
   # GET /tasks/1
