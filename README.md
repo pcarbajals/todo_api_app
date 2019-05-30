@@ -21,5 +21,10 @@ Things you may want to cover:
 
 * Deployment instructions
 
-* Versioning
+## Testing
+* Uses `rspec`
+* Uses [`database_cleaner`](https://github.com/DatabaseCleaner/database_cleaner) for ensuring a clean state for testing.
+* Uses [`factory_bot`](https://github.com/thoughtbot/factory_bot) for replacing fixtures.
+
+## Versioning
 Followed versioning design as described in https://chriskottom.com/blog/2017/04/versioning-a-rails-api/
