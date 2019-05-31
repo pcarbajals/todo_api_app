@@ -1,0 +1,14 @@
+{
+  "data": {
+    "id": "4",
+    "type": "tags",
+    "attributes": {
+      "title": "Someday"
+    },
+    "relationships": {
+      "tasks": {
+        "data": []
+      }
+    }
+  }
+}
