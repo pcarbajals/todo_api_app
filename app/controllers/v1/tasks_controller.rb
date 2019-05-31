@@ -27,7 +27,7 @@ class V1::TasksController < ApplicationController
   # PATCH/PUT /tasks/1
   def update
     if @task.update(task_params)
-      render json: @task
+      render json: @task, include: 'tags'
     else
       render json: @task.errors, status: :unprocessable_entity
     end
@@ -46,6 +46,6 @@ class V1::TasksController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def task_params
-      params.require(:data).permit(attributes: [:title])
+      params.require(:data).permit(:id, attributes: [:title])
     end
 end

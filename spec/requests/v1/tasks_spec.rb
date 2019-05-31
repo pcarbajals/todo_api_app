@@ -33,18 +33,27 @@ RSpec.describe 'V1::Tasks', type: :request do
     context 'PATCH /v1/tasks/2' do
       let(:json_request) { parse_json file_fixture('v1/postman_post_tasks_2_request.json').read }
       let(:json_response) { parse_json file_fixture('v1/postman_post_tasks_2_response.json').read }
-      let(:json_request_with_tag) { parse_json file_fixture('v1/postman_post_tasks_2_with_tag_request.json').read }
-      let(:json_response_with_tag) { parse_json file_fixture('v1/postman_post_tasks_2_with_tag_response.json').read }
+      let(:task_id) { json_request['data']['id'] }
   
       it 'matches example without tags' do
-        post v1_tasks_path, params: json_request
+        create(:task_wash_laundry, id: task_id)
+
+        patch v1_task_path(task_id), params: json_request
   
         expect(response).to have_http_status(200)
         expect(parse_json response.body).to eq(json_response)
       end
 
+      let(:json_request_with_tag) { parse_json file_fixture('v1/postman_post_tasks_2_with_tag_request.json').read }
+      let(:json_response_with_tag) { parse_json file_fixture('v1/postman_post_tasks_2_with_tag_response.json').read }
+      let(:task_id) { json_request_with_tag['data']['id'] }
+
       it 'matches example with tags' do
-        post v1_tasks_path, params: json_request_with_tag
+        task = create(:task_wash_laundry, id: task_id)
+        task.tags << create(:tag, title: 'Urgent')
+        task.tags << create(:tag, title: 'Home')
+
+        patch v1_task_path(task_id), params: json_request_with_tag
 
         expect(response).to have_http_status(200)
         expect(parse_json response.body).to eq(json_response_with_tag)
