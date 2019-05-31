@@ -25,7 +25,7 @@ RSpec.describe 'V1::Tasks', type: :request do
       it 'matches example' do
         post v1_tasks_path, params: json_request
   
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(201)
         expect(parse_json response.body).to eq(json_response)
       end
     end
