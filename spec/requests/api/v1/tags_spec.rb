@@ -45,8 +45,6 @@ RSpec.describe 'Api::V1::Tags', type: :request do
       let(:tag_id) { json_request['data']['id'] }
 
       it 'matches example' do
-        # create(:task_wash_laundry, id: task_id)
-
         patch api_v1_tag_path(tag_id), params: json_request
 
         expect(response).to have_http_status(200)
