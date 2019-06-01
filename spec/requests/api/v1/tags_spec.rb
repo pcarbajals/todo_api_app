@@ -51,5 +51,10 @@ RSpec.describe 'Api::V1::Tags', type: :request do
         expect(parse_json response.body).to eq(json_response)
       end
     end
+
+    after(:each) do
+      Task.destroy_all
+      Tag.destroy_all
+    end
   end
 end
