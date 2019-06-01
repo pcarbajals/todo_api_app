@@ -15,7 +15,6 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'database_cleaner'
   gem 'factory_bot_rails'
-  gem 'pry', '~> 0.12.2'
 end
 
 group :development do
