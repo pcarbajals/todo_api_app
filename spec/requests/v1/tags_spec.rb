@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'V1::Tags', type: :request do
   describe 'Postman integration tests' do
-    before(:all) do
+    before(:each) do
       task_one = create(:task, id: 1)
       task_two = create(:task, id: 2)
       

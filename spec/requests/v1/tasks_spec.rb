@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'V1::Tasks', type: :request do
   describe 'Postman integration tests' do
-    before(:all) do
+    before(:each) do
       task = create(:task_wash_laundry)
       task.tags << create(:tag_today)
     end
