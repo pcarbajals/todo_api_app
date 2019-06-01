@@ -23,27 +23,27 @@ require 'rails_helper'
 # removed from Rails core in Rails 5, but can be added back in via the
 # `rails-controller-testing` gem.
 
-RSpec.describe Api::V1::TagsController, type: :controller do
+RSpec.describe Api::V1::TasksController, type: :controller do
 
   # This should return the minimal set of attributes required to create a valid
-  # Tag. As you add validations to Tag, be sure to
+  # Task. As you add validations to Task, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip('Add a hash of attributes valid for your model')
+    { title: 'Buy milk' }
   }
 
   let(:invalid_attributes) {
-    skip('Add a hash of attributes invalid for your model')
+    { invalid: 'Invalid' }
   }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
-  # TagsController. Be sure to keep this updated too.
+  # TasksController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
   describe 'GET #index' do
     it 'returns a success response' do
-      tag = Tag.create! valid_attributes
+      task = Task.create! valid_attributes
       get :index, params: {}, session: valid_session
       expect(response).to be_successful
     end
@@ -51,33 +51,32 @@ RSpec.describe Api::V1::TagsController, type: :controller do
 
   describe 'GET #show' do
     it 'returns a success response' do
-      tag = Tag.create! valid_attributes
-      get :show, params: { id: tag.to_param }, session: valid_session
+      task = Task.create! valid_attributes
+      get :show, params: { id: task.to_param }, session: valid_session
       expect(response).to be_successful
     end
   end
 
   describe 'POST #create' do
     context 'with valid params' do
-      it 'creates a new Tag' do
+      it 'creates a new Task' do
         expect {
-          post :create, params: { tag: valid_attributes }, session: valid_session
-        }.to change(Tag, :count).by(1)
+          post :create, params: { data: { attributes: valid_attributes } }, session: valid_session
+        }.to change(Task, :count).by(1)
       end
 
-      it 'renders a JSON response with the new tag' do
+      it 'renders a JSON response with the new task' do
 
-        post :create, params: { tag: valid_attributes }, session: valid_session
+        post :create, params: { data: { attributes: valid_attributes } }, session: valid_session
         expect(response).to have_http_status(:created)
         expect(response.content_type).to eq('application/json')
-        expect(response.location).to eq(tag_url(Tag.last))
       end
     end
 
     context 'with invalid params' do
-      it 'renders a JSON response with errors for the new tag' do
+      it 'renders a JSON response with errors for the new task' do
 
-        post :create, params: { tag: invalid_attributes }, session: valid_session
+        post :create, params: { data: { attributes: invalid_attributes } }, session: valid_session
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq('application/json')
       end
@@ -87,30 +86,30 @@ RSpec.describe Api::V1::TagsController, type: :controller do
   describe 'PUT #update' do
     context 'with valid params' do
       let(:new_attributes) {
-        skip('Add a hash of attributes valid for your model')
+        { title: 'Buy Almond Milk' }
       }
 
-      it 'updates the requested tag' do
-        tag = Tag.create! valid_attributes
-        put :update, params: { id: tag.to_param, tag: new_attributes }, session: valid_session
-        tag.reload
-        skip('Add assertions for updated state')
+      it 'updates the requested task' do
+        task = Task.create! valid_attributes
+        put :update, params: { id: task.to_param, data: { attributes: new_attributes } }, session: valid_session
+        task.reload
+        expect(task.title).to eq('Buy Almond Milk')
       end
 
-      it 'renders a JSON response with the tag' do
-        tag = Tag.create! valid_attributes
+      it 'renders a JSON response with the task' do
+        task = Task.create! valid_attributes
 
-        put :update, params: { id: tag.to_param, tag: valid_attributes }, session: valid_session
+        put :update, params: { id: task.to_param, data: { attributes: valid_attributes } }, session: valid_session
         expect(response).to have_http_status(:ok)
         expect(response.content_type).to eq('application/json')
       end
     end
 
     context 'with invalid params' do
-      it 'renders a JSON response with errors for the tag' do
-        tag = Tag.create! valid_attributes
+      it 'renders a JSON response with errors for the task' do
+        task = Task.create! valid_attributes
 
-        put :update, params: { id: tag.to_param, tag: invalid_attributes }, session: valid_session
+        put :update, params: { id: task.to_param, data: { attributes: invalid_attributes } }, session: valid_session
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq('application/json')
       end
@@ -118,11 +117,11 @@ RSpec.describe Api::V1::TagsController, type: :controller do
   end
 
   describe 'DELETE #destroy' do
-    it 'destroys the requested tag' do
-      tag = Tag.create! valid_attributes
+    it 'destroys the requested task' do
+      task = Task.create! valid_attributes
       expect {
-        delete :destroy, params: { id: tag.to_param }, session: valid_session
-      }.to change(Tag, :count).by(-1)
+        delete :destroy, params: { id: task.to_param }, session: valid_session
+      }.to change(Task, :count).by(-1)
     end
   end
 
