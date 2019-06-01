@@ -49,9 +49,10 @@ module Api
 
       # Only allow a trusted parameter "white list" through.
       def tag_params
-        params.require(:data).permit(:id, attributes: [:title])
+        params.require(:data).permit(:id, :attributes).tap do |whitelisted|
+          whitelisted[:title] = params[:data][:attributes][:title]
+        end
       end
     end
   end
 end
-
