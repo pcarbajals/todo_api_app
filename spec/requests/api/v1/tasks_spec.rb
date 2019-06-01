@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'V1::Tasks', type: :request do
+RSpec.describe 'Api::V1::Tasks', type: :request do
   describe 'Postman integration tests' do
     before(:each) do
       task = create(:task_wash_laundry)
@@ -11,7 +11,7 @@ RSpec.describe 'V1::Tasks', type: :request do
       let(:json_response) { parse_json file_fixture('v1/postman_get_tasks_response.json').read }
 
       it 'matches example' do
-        get v1_tasks_path
+        get api_v1_tasks_path
 
         expect(response).to have_http_status(200)
         expect(parse_json response.body).to eq(json_response)
@@ -23,7 +23,7 @@ RSpec.describe 'V1::Tasks', type: :request do
       let(:json_response) { parse_json file_fixture('v1/postman_post_tasks_response.json').read }
 
       it 'matches example' do
-        post v1_tasks_path, params: json_request
+        post api_v1_tasks_path, params: json_request
 
         expect(response).to have_http_status(201)
         expect(parse_json response.body).to eq(json_response)
@@ -38,7 +38,7 @@ RSpec.describe 'V1::Tasks', type: :request do
       it 'matches example without tags' do
         create(:task_wash_laundry, id: task_id)
 
-        patch v1_task_path(task_id), params: json_request
+        patch api_v1_task_path(task_id), params: json_request
 
         expect(response).to have_http_status(200)
         expect(parse_json response.body).to eq(json_response)
@@ -53,7 +53,7 @@ RSpec.describe 'V1::Tasks', type: :request do
         task.tags << create(:tag, title: 'Urgent')
         task.tags << create(:tag, title: 'Home')
 
-        patch v1_task_path(task_id), params: json_request_with_tag
+        patch api_v1_task_path(task_id), params: json_request_with_tag
 
         expect(response).to have_http_status(200)
         expect(parse_json response.body).to eq(json_response_with_tag)
