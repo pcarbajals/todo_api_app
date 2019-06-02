@@ -3,7 +3,7 @@
 module Api
   module V1
     class TagsController < ApplicationController
-      before_action :set_tag, only: [:show, :update, :destroy]
+      before_action :set_tag, only: %i[show update destroy]
 
       # GET /tags
       def index
