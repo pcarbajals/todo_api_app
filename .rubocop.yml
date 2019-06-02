@@ -4,6 +4,20 @@ AllCops:
 
 #################### Metrics ###############################
 
+Metrics/BlockLength:
+  Description: 'Avoid long blocks with many lines.'
+  Enabled: true
+  CountComments: false  # count full line comments?
+  Max: 25
+  ExcludedMethods:
+    # By default, exclude the `#refine` method, as it tends to have larger
+    # associated blocks.
+    - refine
+  Exclude:
+    - '**/*.gemspec'
+    - 'spec/**/*'
+    - 'test/**/*'
+      
 Metrics/LineLength:
   Description: 'Limit lines to 120 characters.'
   Enabled: true
