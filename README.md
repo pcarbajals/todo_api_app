@@ -1,32 +1,18 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Description for this homework can be found at: https://gist.github.com/rsamofals/f42975c3409354f70e30fc396d7e9ff7
 
-Things you may want to cover:
+The following sections describe details that are specific to this solution.
 
-* Ruby version
+### Database initialization
+It is recommended to seed the database (`run db:seed`) before running the Postman collection. seeding the database will ensure the necessary records
+and indexes are in place.
 
-* System dependencies
+## Test Coverage
+After running `rspec`, then open `coverage/index.html` in the browser 
+TODO with simplecov
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-## Testing
-* Uses `rspec`
-* Uses [`database_cleaner`](https://github.com/DatabaseCleaner/database_cleaner) for ensuring a clean state for testing.
-* Uses [`factory_bot`](https://github.com/thoughtbot/factory_bot) for replacing fixtures.
-
-### Bug in Postman Collection
+## Bug in Postman Collection
 One of the requests in the provided Postman Collection had a bug in its test script.
 
 Specifically, the request _Update Task with Tag (Expect Tags)_ comes with the following test script:
@@ -116,4 +102,4 @@ Since this example response is consistent with the example responses from other 
 ```
 
 ## Versioning
-The versioning design followed by this assignment is described in https://chriskottom.com/blog/2017/04/versioning-a-rails-api/
+This project follows the versioning design described in https://chriskottom.com/blog/2017/04/versioning-a-rails-api/
