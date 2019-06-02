@@ -52,7 +52,8 @@ module Api
       # Only allow a trusted parameter "white list" through.
       def task_params
         params.require(:data).permit(:attributes).tap do |whitelisted|
-          whitelisted[:title] = params[:data][:attributes][:title]
+          whitelisted[:title] = params.dig(:data, :attributes, :title)
+          whitelisted[:tags]  = params.dig(:data, :attributes, :tags) unless params.dig(:data, :attributes, :tags).nil?
         end
       end
     end

@@ -51,9 +51,7 @@ RSpec.describe 'Api::V1::Tasks', type: :request do
       let(:task_id) { json_request_with_tag['data']['id'] }
 
       it 'matches example with tags' do
-        task = create(:task_wash_laundry, id: task_id)
-        task.tags << create(:tag, title: 'Urgent')
-        task.tags << create(:tag, title: 'Home')
+        create(:task_wash_laundry, id: task_id)
 
         patch api_v1_task_path(task_id), params: json_request_with_tag
 
