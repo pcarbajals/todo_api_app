@@ -26,17 +26,11 @@ require 'rails_helper'
 # `rails-controller-testing` gem.
 
 RSpec.describe Api::V1::TasksController, type: :controller do
-
   # This should return the minimal set of attributes required to create a valid
   # Task. As you add validations to Task, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) {
-    { title: 'Buy milk' }
-  }
-
-  let(:invalid_attributes) {
-    { invalid: 'Invalid' }
-  }
+  let(:valid_attributes) { { title: 'Buy milk' } }
+  let(:invalid_attributes) { { invalid: 'Invalid' } }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
@@ -45,7 +39,7 @@ RSpec.describe Api::V1::TasksController, type: :controller do
 
   describe 'GET #index' do
     it 'returns a success response' do
-      task = Task.create! valid_attributes
+      Task.create! valid_attributes
       get :index, params: {}, session: valid_session
       expect(response).to be_successful
     end
@@ -62,13 +56,11 @@ RSpec.describe Api::V1::TasksController, type: :controller do
   describe 'POST #create' do
     context 'with valid params' do
       it 'creates a new Task' do
-        expect {
-          post :create, params: { data: { attributes: valid_attributes } }, session: valid_session
-        }.to change(Task, :count).by(1)
+        params = { data: { attributes: valid_attributes } }
+        expect { post :create, params: params, session: valid_session }.to change(Task, :count).by(1)
       end
 
       it 'renders a JSON response with the new task' do
-
         post :create, params: { data: { attributes: valid_attributes } }, session: valid_session
         expect(response).to have_http_status(:created)
         expect(response.content_type).to eq('application/json')
@@ -77,7 +69,6 @@ RSpec.describe Api::V1::TasksController, type: :controller do
 
     context 'with invalid params' do
       it 'renders a JSON response with errors for the new task' do
-
         post :create, params: { data: { attributes: invalid_attributes } }, session: valid_session
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq('application/json')
@@ -87,9 +78,7 @@ RSpec.describe Api::V1::TasksController, type: :controller do
 
   describe 'PUT #update' do
     context 'with valid params' do
-      let(:new_attributes) {
-        { title: 'Buy Almond Milk' }
-      }
+      let(:new_attributes) { { title: 'Buy Almond Milk' } }
 
       it 'updates the requested task' do
         task = Task.create! valid_attributes
@@ -121,10 +110,7 @@ RSpec.describe Api::V1::TasksController, type: :controller do
   describe 'DELETE #destroy' do
     it 'destroys the requested task' do
       task = Task.create! valid_attributes
-      expect {
-        delete :destroy, params: { id: task.to_param }, session: valid_session
-      }.to change(Task, :count).by(-1)
+      expect { delete :destroy, params: { id: task.to_param }, session: valid_session }.to change(Task, :count).by(-1)
     end
   end
-
 end

@@ -26,17 +26,11 @@ require 'rails_helper'
 # `rails-controller-testing` gem.
 
 RSpec.describe Api::V1::TagsController, type: :controller do
-
   # This should return the minimal set of attributes required to create a valid
   # Tag. As you add validations to Tag, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) {
-    { title: 'Follow up' }
-  }
-
-  let(:invalid_attributes) {
-    { invalid: 'Invalid' }
-  }
+  let(:valid_attributes) { { title: 'Follow up' } }
+  let(:invalid_attributes) { { invalid: 'Invalid' } }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
@@ -45,7 +39,7 @@ RSpec.describe Api::V1::TagsController, type: :controller do
 
   describe 'GET #index' do
     it 'returns a success response' do
-      tag = Tag.create! valid_attributes
+      Tag.create! valid_attributes
       get :index, params: {}, session: valid_session
       expect(response).to be_successful
     end
@@ -64,9 +58,7 @@ RSpec.describe Api::V1::TagsController, type: :controller do
       let(:params) { { 'data': { 'attributes': valid_attributes } } }
 
       it 'creates a new Tag' do
-        expect {
-          post :create, params: params, session: valid_session
-        }.to change(Tag, :count).by(1)
+        expect { post :create, params: params, session: valid_session }.to change(Tag, :count).by(1)
       end
 
       it 'renders a JSON response with the new tag' do
@@ -121,10 +113,7 @@ RSpec.describe Api::V1::TagsController, type: :controller do
   describe 'DELETE #destroy' do
     it 'destroys the requested tag' do
       tag = Tag.create! valid_attributes
-      expect {
-        delete :destroy, params: { id: tag.to_param }, session: valid_session
-      }.to change(Tag, :count).by(-1)
+      expect { delete :destroy, params: { id: tag.to_param }, session: valid_session }.to change(Tag, :count).by(-1)
     end
   end
-
 end

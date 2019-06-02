@@ -16,7 +16,7 @@ RSpec.describe 'Api::V1::Tasks', type: :request do
         get api_v1_tasks_path
 
         expect(response).to have_http_status(200)
-        expect(parse_json response.body).to eq(json_response)
+        expect(parse_json(response.body)).to eq(json_response)
       end
     end
 
@@ -28,7 +28,7 @@ RSpec.describe 'Api::V1::Tasks', type: :request do
         post api_v1_tasks_path, params: json_request
 
         expect(response).to have_http_status(201)
-        expect(parse_json response.body).to eq(json_response)
+        expect(parse_json(response.body)).to eq(json_response)
       end
     end
 
@@ -43,7 +43,7 @@ RSpec.describe 'Api::V1::Tasks', type: :request do
         patch api_v1_task_path(task_id), params: json_request
 
         expect(response).to have_http_status(200)
-        expect(parse_json response.body).to eq(json_response)
+        expect(parse_json(response.body)).to eq(json_response)
       end
 
       let(:json_request_with_tag) { parse_json file_fixture('v1/postman_post_tasks_2_with_tag_request.json').read }
@@ -56,7 +56,7 @@ RSpec.describe 'Api::V1::Tasks', type: :request do
         patch api_v1_task_path(task_id), params: json_request_with_tag
 
         expect(response).to have_http_status(200)
-        expect(parse_json response.body).to eq(json_response_with_tag)
+        expect(parse_json(response.body)).to eq(json_response_with_tag)
       end
     end
   end
