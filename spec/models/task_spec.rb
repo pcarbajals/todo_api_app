@@ -9,7 +9,7 @@ RSpec.describe Task, type: :model do
   end
 
   context 'on initialization' do
-    it 'should accept tags of type Tags' do
+    it 'should accept tags of Tab type' do
       tags = [Tag.new(title: 'tag 1'), Tag.new(title: 'tag 2')]
       task = Task.create!(title: 'tags as Tags', tags: tags)
 
@@ -17,7 +17,7 @@ RSpec.describe Task, type: :model do
       expect(task.tags.map(&:title)).to eq(['tag 1', 'tag 2'])
     end
 
-    it 'should accept tags of type Strings' do
+    it 'should accept tags of String type' do
       strings = ['tag 1', 'tag 2']
       task    = Task.create!(title: 'tags as Strings', tags: strings)
 
