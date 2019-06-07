@@ -22,6 +22,15 @@ RSpec.describe 'Api::V1::Tags', type: :request do
       end
     end
 
+    context 'GET /v1/tags/1' do
+      it 'matches example' do
+        get api_v1_tag_path(1), params: { id: 1 }
+
+        expect(response).to have_http_status(200)
+        expect(parse_json(response.body)).to eq(parse_json(file_fixture('v1/postman_get_tags_1_response.json').read))
+      end
+    end
+
     context 'POST /v1/tags' do
       it 'matches example' do
         post api_v1_tags_path, params: parse_json(file_fixture('v1/postman_post_tags_request.json').read)
