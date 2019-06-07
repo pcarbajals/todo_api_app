@@ -3,8 +3,6 @@
 module Api
   module V1
     class TasksController < ApplicationController
-      before_action :set_task, only: %i[show update destroy]
-
       # GET /tasks
       def index
         @tasks = Task.all.includes(:tags)
@@ -14,7 +12,7 @@ module Api
 
       # GET /tasks/1
       def show
-        render json: @task
+        render json: task
       end
 
       # POST /tasks
@@ -30,23 +28,25 @@ module Api
 
       # PATCH/PUT /tasks/1
       def update
-        if @task.update(task_params)
-          render json: @task, include: 'tags'
+        # TODO if @task.transaction { @task.update(task_params) }
+
+        if task.update(task_params)
+          render json: task, include: 'tags'
         else
-          render json: @task.errors, status: :unprocessable_entity
+          render json: task.errors, status: :unprocessable_entity
         end
       end
 
       # DELETE /tasks/1
       def destroy
-        @task.destroy
+        task.destroy
       end
 
       private
 
       # Use callbacks to share common setup or constraints between actions.
-      def set_task
-        @task = Task.find(params[:id])
+      def task
+        @task ||= Task.find(params[:id])
       end
 
       # Only allow a trusted parameter "white list" through.
