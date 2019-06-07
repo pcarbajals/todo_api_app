@@ -4,6 +4,8 @@ module Api
   module V1
     class TasksController < ApplicationController
       rescue_from ActiveRecord::RecordInvalid, with: :render_validation_failed
+      rescue_from ArgumentError, with: :render_bad_request
+      rescue_from NoMethodError, with: :render_bad_request
 
       # GET /tasks
       def index
@@ -45,6 +47,17 @@ module Api
       end
 
       private
+
+      def render_bad_request(error)
+        error =
+          {
+            'status': :unprocessable_entity,
+            'title': 'Bad request',
+            'detail': error
+          }
+
+        render json: { 'errors': [error] }, status: :unprocessable_entity
+      end
 
       def render_validation_failed(exception)
         errors = exception.record.errors.map do |_|
