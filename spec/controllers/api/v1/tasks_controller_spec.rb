@@ -105,6 +105,24 @@ RSpec.describe Api::V1::TasksController, type: :controller do
         expect(response.content_type).to eq('application/json')
       end
     end
+
+    context 'failing requests' do
+      let(:update_task) { { title: 'This task will be updated' } }
+
+      it 'returns a validation failed response' do
+        task = create(:task, title: 'New task')
+
+        update_attributes = { title: 'New title', tags: ['new_tag', ''] }
+        put :update, params: { id: task.to_param, data: { attributes: update_attributes } }, session: valid_session
+
+        expect(response).to have_http_status(:unprocessable_entity)
+        expect(parse_json(response.body)['errors'][0]['detail']).to eq('Validation failed: Title can\'t be blank')
+
+        task.reload
+        expect(task.title).to eq('New task')
+        expect(task.tags.count).to eq(0)
+      end
+    end
   end
 
   describe 'DELETE #destroy' do

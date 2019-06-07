@@ -3,6 +3,8 @@
 module Api
   module V1
     class TasksController < ApplicationController
+      rescue_from ActiveRecord::RecordInvalid, with: :render_validation_failed
+
       # GET /tasks
       def index
         @tasks = Task.all.includes(:tags)
@@ -43,6 +45,18 @@ module Api
       end
 
       private
+
+      def render_validation_failed(exception)
+        errors = exception.record.errors.map do |_|
+          {
+            'status': :unprocessable_entity,
+            'title': 'Validation failed',
+            'detail': exception.message
+          }
+        end
+
+        render json: { 'errors': errors }, status: :unprocessable_entity
+      end
 
       # Use callbacks to share common setup or constraints between actions.
       def task
