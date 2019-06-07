@@ -32,9 +32,7 @@ module Api
 
       # PATCH/PUT /tasks/1
       def update
-        # TODO if @task.transaction { @task.update(task_params) }
-
-        if task.update(task_params)
+        if TransactionalUpdateService.call(task, task_params)
           render json: task, include: 'tags'
         else
           render json: task.errors, status: :unprocessable_entity
