@@ -3,6 +3,8 @@
 module Api
   module V1
     class TasksController < ApplicationController
+      around_action :transactions_filter, only: %i[create update destroy]
+
       rescue_from ActiveRecord::RecordInvalid, with: :render_validation_failed
       rescue_from ArgumentError, with: :render_bad_request
       rescue_from NoMethodError, with: :render_bad_request
@@ -81,6 +83,12 @@ module Api
         params.require(:data).permit(:attributes).tap do |whitelisted|
           whitelisted[:title] = params.dig(:data, :attributes, :title)
           whitelisted[:tags]  = params.dig(:data, :attributes, :tags) unless params.dig(:data, :attributes, :tags).nil?
+        end
+      end
+
+      def transactions_filter
+        ActiveRecord::Base.transaction do
+          yield
         end
       end
     end
