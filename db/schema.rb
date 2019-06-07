@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_06_125336) do
+ActiveRecord::Schema.define(version: 2019_06_07_031113) do
 
   create_table "tags", force: :cascade do |t|
     t.string "title"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 2019_06_06_125336) do
     t.integer "task_id"
     t.integer "tag_id"
     t.index ["tag_id"], name: "index_tags_tasks_on_tag_id"
+    t.index ["task_id", "tag_id"], name: "index_tags_tasks_on_task_id_and_tag_id", unique: true
     t.index ["task_id"], name: "index_tags_tasks_on_task_id"
   end
 
