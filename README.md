@@ -1,8 +1,12 @@
 # README
 
-Description for this homework can be found at: https://gist.github.com/rsamofals/f42975c3409354f70e30fc396d7e9ff7
-
-The following sections describe details that are specific to this solution.
+## This Project
+A simple TODO application that allows to:
+- Add new task
+- Edit existing task
+- List all tasks
+- Tag a task
+- Delete existing task
 
 ### Database initialization
 It is recommended to seed the database (`run db:seed`) before running the Postman collection. seeding the database will ensure the necessary records
@@ -12,10 +16,10 @@ and indexes are in place.
 After running `rspec`, then open `coverage/index.html` in the browser 
 TODO with simplecov
 
-## Bug in Postman Collection
-One of the requests in the provided Postman Collection had a bug in its test script.
+## Companion Postman Collection
+This project has a companion Postman Collection (not included in the repo). This collection is purely for verification of correct implementation of the requirements of this project. The Postman collection provides API examples, the expected endpoints, payloads and their responses. However, the Rspec in this project is the actual test suite.
 
-Specifically, the request _Update Task with Tag (Expect Tags)_ comes with the following test script:
+Having said the above, the Postman Collection had a bug in its test script. Specifically, the request _Update Task with Tag (Expect Tags)_ comes with the following test script:
 
 ```javascript
  var jsonData = JSON.parse(responseBody);
