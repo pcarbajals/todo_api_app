@@ -7,7 +7,7 @@ ruby '2.4.6'
 
 gem 'active_model_serializers', '~> 0.10.0'
 gem 'bootsnap', '>= 1.1.0', require: false # for booting faster
-gem 'puma', '~> 3.11'
+gem 'puma', '~> 3.12'
 gem 'rails', '~> 5.2.3'
 gem 'rspec-rails', '~> 3.5'
 gem 'sqlite3'
